@@ -1,3 +1,4 @@
+<header></header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="{{url('/')}}">DTS Soft</a>
@@ -12,20 +13,26 @@
                 {{--                </li>--}}
 
                 {{--                @auth--}}
+                <div id="menubar"
+                     style="position: sticky; border-radius: 10px;border-style: outset; padding: 10px; z-index: 21; height: 50px; display: flex; flex-direction: row; justify-content: space-around; padding-top: 10px;">
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{url('/')}}/free">게시판</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{url('/')}}/notice">공지사항</a>
-                </li>
+                    <div id="section">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/')}}/free">게시판</a>
+                        </li>
+                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/')}}/notice">공지사항</a>
+                    </li>
+                </div>
 
                 @auth
                     @if(auth()->user()->type == 1)
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('/')}}/view">관리자페이지</a>
-                    </li>
-                    @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/')}}/view">관리자페이지</a>
+                        </li>
+            @endif
             @endauth
 
             {{--            @endauth--}}
@@ -40,17 +47,17 @@
                 @csrf
                 <li class="nav-item">
                     <div class="nav-link">
-                        Welcome! {{auth()->user()->name}}
+                        Welcome!
                     </div>
             </form>
-{{--            <form method="POST" action="{{ route('logout') }}">--}}
-{{--                @csrf--}}
-{{--                <li class="nav-item">--}}
-{{--                    <a class="nav-link" href="route('logout')"--}}
-{{--                       onclick="event.preventDefault(); this.closest('form').submit();">--}}
-{{--                        Log Out--}}
-{{--                    </a>--}}
-{{--            </form>--}}
+            {{--            <form method="POST" action="{{ route('logout') }}">--}}
+            {{--                @csrf--}}
+            {{--                <li class="nav-item">--}}
+            {{--                    <a class="nav-link" href="route('logout')"--}}
+            {{--                       onclick="event.preventDefault(); this.closest('form').submit();">--}}
+            {{--                        Log Out--}}
+            {{--                    </a>--}}
+            {{--            </form>--}}
             {{--            @endauth--}}
         </ul>
     </div>

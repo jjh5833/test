@@ -74,6 +74,11 @@
             @endif
             </tbody>
         </table>
+        @auth
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+                <a href="{{url('/')}}/create" class="btn btn-outline-success" type="button">글쓰기</a>
+            </div>
+        @endauth
     </div>
 
 @endsection

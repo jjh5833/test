@@ -8,6 +8,10 @@ use App\Models\Board;
 use App\Models\Comment;
 use App\Models\Heart;
 
+$prevPage = $_SERVER['HTTP_REFERER'];
+
+header('location:' . $prevPage);
+
 class BoardController extends Controller
 {
     public function create()
@@ -21,7 +25,7 @@ class BoardController extends Controller
     public function view($id)
     {
         $board = Board::find($id);
-        $board-> count += 1;
+        $board->count += 1;
         $board->save();
 
         return view('board.view')
@@ -32,7 +36,7 @@ class BoardController extends Controller
     {
         $categories = Category::orderby('title', 'asc')->get();
         $board = Board::find($id);
-        if (auth()->user()->id == $board->user_id) {
+        if (auth()->user()->id == $board->user_id or auth()->user()->type == 1) {
             return view('board.edit')
                 ->with('board', $board)
                 ->with('categories', $categories);
@@ -95,14 +99,26 @@ class BoardController extends Controller
 
     public function delete($id)
     {
+
+
         $board = Board::find($id); // 받아온 아이디로 카테고리를 찾으면 (id는 글 번호)
-        $board->delete(); // 그 카테고리를 del 해라
+        if (auth()->user()->id == $board->user_id or auth()->user()->type == 1) {
 
-        return redirect('/');
+            $board->delete(); // 그 카테고리를 del 해라
 
+            return redirect('/');
+        }
+        {
+            echo "<script>
+            alert('로그인 정보가 맞지 않습니다.');
+             window.location.href=('http://localhost/test/public/');
+            </script>;";
+
+        }
     }
 
-    public function category($id)
+    public
+    function category($id)
     {
         $category = Category::find($id);
         $category_title = $category->title;
@@ -114,7 +130,8 @@ class BoardController extends Controller
             ->with('category_title', $category_title);
     }
 
-    public function commentStore(Request $request)
+    public
+    function commentStore(Request $request)
     {
 
         $comment = new Comment;
@@ -139,7 +156,8 @@ class BoardController extends Controller
 //
 //        return view();
 //    }
-    public function heart(Request $request)
+    public
+    function heart(Request $request)
     {
 
         if (isset(auth()->user()->id)) {
@@ -160,7 +178,8 @@ class BoardController extends Controller
         }
 
 
-        return redirect('/' . $request->board_id . '/view');
+//        return redirect('/' . $request->board_id . '/view');
+        return back();
     }
 
 

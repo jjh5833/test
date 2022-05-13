@@ -32,6 +32,8 @@
                                     @csrf
                                     <button class="btn btn-outline-danger" type="submit">삭제</button>
                                 </form>
+                                <a href="http://localhost/test/public/free" class="btn btn-outline-secondary me-md-2"
+                                   type="button">목록</a>
                             </div>
                             @endif
                             @endauth

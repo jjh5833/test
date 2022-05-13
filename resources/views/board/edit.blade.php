@@ -86,7 +86,8 @@
                         if (result) {
                             alert("완료");
                         }
-                        window.location.href = 'http://localhost/test/public/'
+                        // window.location.href = 'http://localhost/test/public/'
+                        window.location.href = 'http://localhost/test/public/{{$board->id}}/view' //0513 피드백 1개 수정
                     },
                     error: function() {
                         alert("에러 발생");

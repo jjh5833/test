@@ -6,6 +6,9 @@
 @endsection
 @section('content')
     <div class="container">
+        @php
+            $categories = App\Models\Category::orderby('id','asc')->get();
+        @endphp
         <div class="row mt-5">
             <div class="col-12">
                 <label>title</label>
@@ -18,7 +21,7 @@
                     <label>Category</label>
                     <option value="">지역을 선택하세요.
                 @foreach($categories as $category)
-                        <option value="{{$category->id}}"{{$category->id ? "selected" : ""}}>{{$category->title}}</option>
+                        <option value="{{$category->id}}">{{$category->title}}</option>
                     @endforeach
                 </select>
             </div>
@@ -36,6 +39,8 @@
             </div>
         </div>
     </div>
+    <input type="file" name="imgFile" /><br>
+
 @endsection
 
 @section('before_body_end_tag')
