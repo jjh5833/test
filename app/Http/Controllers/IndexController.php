@@ -32,10 +32,9 @@ class IndexController extends Controller
 
     public function view1()
     {
-        $board = Board::get();
-        $board_count= $board->count;
-        return view('cat.test')
-            ->with('board', $board)
-            ->with('board', $board_count);
+
+
+        return view('cat.test');
+
     }
 }

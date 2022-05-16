@@ -53,11 +53,6 @@ Route::delete('/{id}/delete', [BoardController::class, 'delete']);
 Route::post('/count', [BoardController::class, 'count']);//글 조회
 Route::post('/heart', [BoardController::class, 'heart']);
 
-
-
-
-
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

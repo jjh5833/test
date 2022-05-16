@@ -1,6 +1,10 @@
 @extends('layouts.cat')
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cab3bd2a90fe94aaa3e3bbd9282944"></script>
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cab3bd2a90fe94aaa3e3bbd9282944&libraries=services,clusterer,drawing"></script>
 
 @section('content')
+
     <div class="container">
         <div class="row">
             <div>
@@ -16,39 +20,71 @@
                     <div class="row">
                         {!!$board->content!!}
                     </div>
-                </div>
+                    {{--             이미지 자리        <img src="./image/guide_map_main.jpg" id="imgname" align="left">--}}
+                    <img src="./image/CAT.jpg" id="test">
 
+                    {{--이미지 태그를 걸고 저장 장소에 파일이 올라가야하는데?--}}
+                    {!! $board->imgname !!}
+                </div>
+                <div id="map" style="width:500px;height:400px;">
+                    <body>
+                    <div id="map" style="width:500px;height:400px;"></div>
+                    <script type="text/javascript"
+                            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cab3bd2a90fe94aaa3e3bbd9282944"></script>
+                    <script>
+                        var container = document.getElementById('map');
+                        var options = {
+                            center: new kakao.maps.LatLng(33.450701, 126.570667),
+                            level: 3
+                        };
+
+                        var map = new kakao.maps.Map(container, options);
+
+                        var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+                        var options = { //지도를 생성할 때 필요한 기본 옵션
+                            center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+                            level: 3 //지도의 레벨(확대, 축소 정도)
+                        };
+
+                        var map = new kakao.maps.Map(container, options);
+                    </script>
+                    </body>
+                </div>
                 @auth
                     @if($board->user_id == auth()->user()->id or auth()->user()->type == 1)
 
                         <hr>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end my-3">
-
-                            <div>
                                 <a href="{{url('/')}}/{{$board->id}}/edit" class="btn btn-outline-primary me-md-2"
-                                   type="button">수정</a>
+                                   type="button"style="height: 38px;">수정</a>
                                 <form method="POST" action="{{url('/')}}/{{$board->id}}/delete">
                                     @method('DELETE')
                                     @csrf
                                     <button class="btn btn-outline-danger" type="submit">삭제</button>
                                 </form>
                                 <a href="http://localhost/test/public/free" class="btn btn-outline-secondary me-md-2"
-                                   type="button">목록</a>
-                            </div>
+                                   type="button" style="float: right; height: 38px;">목록</a>
                             @endif
                             @endauth
 
 
                         </div>
+
                         <div class="row mt-3" align="center">
                             <div class="col-12">
                                 <form method="POST" action="{{url('/')}}/heart">
                                     @csrf
                                     <input type="hidden" name="board_id" value="{{$board->id}}">
-                                    추천<button type="submit" class="btn btn-outline-danger fs-3" style="padding: 1px">
+                                    추천
+                                    <button type="submit" class="btn btn-outline-danger fs-3" style="padding: 1px">
                                         <i class="fas fa-heart"></i>{{App\Models\Heart::where('board_id', $board->id)->count()}}
                                     </button>
                                 </form>
+                                @guest
+                                    <a href="http://localhost/test/public/free"
+                                       class="btn btn-outline-secondary me-md-2"
+                                       type="button" style="float: right">목록</a>
+                                @endguest
                             </div>
                         </div>
             </div>
@@ -71,7 +107,9 @@
                                         작성자: {{$user->name}} |
                                         {{$comment->created_at}}</small>
                                 </li>
+
                             @endforeach
+
                         @endif
                     </ul>
                 </div>
@@ -93,4 +131,5 @@
                 </div>
             </form>
         </div>
+
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment1;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Board;
@@ -28,7 +29,9 @@ class BoardController extends Controller
         $board->count += 1;
         $board->save();
 
+        $comment = Comment1::get();
         return view('board.view')
+            ->with('comment', $comment)
             ->with('board', $board);
     }
 
@@ -70,7 +73,9 @@ class BoardController extends Controller
             $board->title = $request->title;
             $board->category_id = $request->category_id;
             $board->content = $request->input('content');
+            $board->imgname = $request->imgname;
             $board->user_id = auth()->user()->id; //20220509 추가 게시글 작성시 user_id값도 가져오기
+
             $board->save();
         }
 
