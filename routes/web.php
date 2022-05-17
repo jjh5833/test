@@ -37,6 +37,7 @@ Route::get('/userdata', [LoginController::class, 'userdata']);
 Route::delete('/login/{id}/delete', [LoginController::class, 'delete']);
 Route::put('/login/{id}/update', [LoginController::class, 'update']);
 Route::post('/login/store', [LoginController::class, 'store']);
+Route::get('/register', [LoginController::class, 'register']);
 
 
 
@@ -52,6 +53,7 @@ Route::post('/update', [BoardController::class, 'update']);//글 수정2
 Route::delete('/{id}/delete', [BoardController::class, 'delete']);
 Route::post('/count', [BoardController::class, 'count']);//글 조회
 Route::post('/heart', [BoardController::class, 'heart']);
+Route::post('/comment1/store', [BoardController::class, 'comment1Store']); //댓글
 
 Route::get('/dashboard', function () {
     return view('dashboard');

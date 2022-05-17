@@ -42,6 +42,7 @@
             <tbody> <!-- 반복 시작 예정지점 -->
 
             @if(count($boards)>0)
+
                 @foreach($boards as $board)
 
                     <tr>
@@ -78,6 +79,7 @@
                 <a href="{{url('/')}}/create" class="btn btn-outline-success" type="button">글쓰기</a>
             </div>
         @endauth
+        {{ $boards->links() }}
 
     </div>
 

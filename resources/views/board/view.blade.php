@@ -55,15 +55,15 @@
 
                         <hr>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end my-3">
-                                <a href="{{url('/')}}/{{$board->id}}/edit" class="btn btn-outline-primary me-md-2"
-                                   type="button"style="height: 38px;">수정</a>
-                                <form method="POST" action="{{url('/')}}/{{$board->id}}/delete">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-outline-danger" type="submit">삭제</button>
-                                </form>
-                                <a href="http://localhost/test/public/free" class="btn btn-outline-secondary me-md-2"
-                                   type="button" style="float: right; height: 38px;">목록</a>
+                            <a href="{{url('/')}}/{{$board->id}}/edit" class="btn btn-outline-primary me-md-2"
+                               type="button" style="height: 38px;">수정</a>
+                            <form method="POST" action="{{url('/')}}/{{$board->id}}/delete">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-outline-danger" type="submit">삭제</button>
+                            </form>
+                            <a href="http://localhost/test/public/free" class="btn btn-outline-secondary me-md-2"
+                               type="button" style="float: right; height: 38px;">목록</a>
                             @endif
                             @endauth
 
@@ -105,9 +105,45 @@
                                             $user = App\Models\User::find($comment->user_id);
                                         @endphp
                                         작성자: {{$user->name}} |
-                                        {{$comment->created_at}}</small>
-                                </li>
+                                        {{$comment->created_at}} | 댓글아이디 {{$comment->id}}</small>
+                                <li class="list-group-item list-group-item-action">
+                                    <a href="#">댓글쓰기 누르면 드롭 다운</a> <br>
+                                    대댓 작성 구역
+                                    <form method="POST" action="{{url('/')}}/comment1/store">
+                                        @csrf
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                {{--                    <input type="text" class="form-control" name="comments"> 값이 안들어갈때 확인--}}
+                                                <input type="text" class="form-control" name="comment">
+                                                <input type="hidden" name="board_id" value="{{$board->id}}">
+                                                <input type="hidden" name="comment_id" value="{{$comment->id}}">
+                                                <!-- board_id 값을 받아올 곳이 없으니 hidden으로 숨긴고 선언을 해줌 -->
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
+                                                    <button class="btn btn-outline-primary" type="submit">저장</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
 
+                                    @php
+                                        $comment1s = App\Models\Comment1::where('comment_id', $comment->id)->orderby('created_at','asc')->get(); //게시글 별 댓글 값 가져오기
+                                    @endphp
+                                    @if(count($comment1s)>0)
+                                       <ul class="depth_1">
+                                        @foreach($comment1s as $comment)
+                                            &nbsp {{$comment->comments}} <br><small class="nav justify-content-end">
+                                                @php
+                                                    $user = App\Models\User::find($comment->user_id);
+                                                @endphp
+                                                작성자: {{$user->name}} |
+                                                {{$comment->created_at}} | 대댓글아이디 {{$comment->id}}</small>
+                                        @endforeach
+                                       </ul>
+                                    @endif
+                                </li>
+                                </li>
                             @endforeach
 
                         @endif

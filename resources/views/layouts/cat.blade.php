@@ -10,6 +10,12 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+    {{--    <!-- Font -->--}}
+    {{--    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"--}}
+    {{--          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOa93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"--}}
+    {{--          crossorigin="anonymous"/>--}}
+
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     @yield('inside_head_tag')

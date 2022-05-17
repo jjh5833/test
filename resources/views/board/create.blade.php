@@ -13,6 +13,16 @@
 @endsection
 @section('content')
     <div class="container">
+        <script type="text/javascript">
+            function getRealPath(obj){
+                obj.select();
+                document.selection.createRange().text.toString();
+
+                // document.selection.createRangeCollection()[0].text.toString();// 이걸로....
+                // document.upimage.file_path.value = document.selection.createRangeCollection()[0].text.toString();
+
+            }
+        </script>
         @php
             $categories = App\Models\Category::orderby('id','asc')->get();
         @endphp
@@ -46,7 +56,11 @@
             </div>
         </div>
     </div>
-    <input type="file" name="imgFile" id="imgname" enctype="multipart/form-data"/><br>
+{{--    <input type="file" name="imgFile" id="imgname" enctype="multipart/form-data" /><br>--}}
+    <input type="file" name="imgFile" id="imgname" value="123" enctype="text/plain">
+{{--           onchange="this.select(); document.getElementById('file_path').value=document.selection.createRange().text.toString();">--}}
+{{--    <input type="text" name="file_path" id="file_path"size="100">--}}
+
     <div class="map_wrap">
         <div id="map"
              style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
@@ -107,8 +121,10 @@
         // $(document).ready(function (){
         //
         //     $('#submit').click(function (){
-        //         var content = $('textarea.editor').val();
-        //         console.log(content);
+        //         var file_path = $('textarea.editor').val();
+        //         console.log(file_path);
+        //
+        //
         //     })
         //
         // })

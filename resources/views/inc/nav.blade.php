@@ -1,4 +1,3 @@
-<header></header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="{{url('/')}}">DTS Soft</a>
@@ -8,11 +7,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                {{--                <li class="nav-item">--}}
-                {{--                    <a class="nav-link" href="{{url('/')}}/category">Category</a>--}}
-                {{--                </li>--}}
 
-                {{--                @auth--}}
                 <div id="menubar"
                      style="position: sticky; border-radius: 10px;border-style: outset; padding: 10px; z-index: 21; height: 50px; display: flex; flex-direction: row; justify-content: space-around; padding-top: 10px;">
 
@@ -35,14 +30,10 @@
             @endif
             @endauth
 
-            {{--            @endauth--}}
-
-
         </div>
         </ul>
         <ul class="nav justify-content-end">
 
-            {{--            @auth--}}
             <form method="get" action="{{url('/')}}/mydata">
                 @csrf
                 <li class="nav-item">
@@ -50,15 +41,7 @@
                         Welcome!
                     </div>
             </form>
-            {{--            <form method="POST" action="{{ route('logout') }}">--}}
-            {{--                @csrf--}}
-            {{--                <li class="nav-item">--}}
-            {{--                    <a class="nav-link" href="route('logout')"--}}
-            {{--                       onclick="event.preventDefault(); this.closest('form').submit();">--}}
-            {{--                        Log Out--}}
-            {{--                    </a>--}}
-            {{--            </form>--}}
-            {{--            @endauth--}}
+
         </ul>
     </div>
 

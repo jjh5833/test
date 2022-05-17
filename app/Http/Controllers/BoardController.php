@@ -28,10 +28,9 @@ class BoardController extends Controller
         $board = Board::find($id);
         $board->count += 1;
         $board->save();
-
-        $comment = Comment1::get();
+//        $comment = Comment::get();
         return view('board.view')
-            ->with('comment', $comment)
+//            ->with('comment', $comment)
             ->with('board', $board);
     }
 
@@ -93,7 +92,7 @@ class BoardController extends Controller
     {
         $category = Category::find($id);
         $category_title = $category->title;
-        $boards = Board::where('category_id', $id)->orderby('created_at', 'desc')->paginate(3);
+        $boards = Board::where('category_id', $id)->orderby('created_at', 'desc')->paginate(5);
 
         return view('category.board')
             ->with('boards', $boards)
@@ -148,19 +147,21 @@ class BoardController extends Controller
         return redirect('/' . $request->board_id . '/view');
     }
 
-//    public function count(Request $request)
-//    {
-//
-//
-//        $board = Board::get();
-//        $board->view_cnt++;
-//        $board->save();
-//
-//        $previous = Board::where('bbs_se_cd', $notice->bbs_se_cd)->where('bbs_sn', '<', $bbsSn)->orderBy('bbs_sn')->first();
-//
-//
-//        return view();
-//    }
+    public
+    function comment1Store(Request $request)
+    {
+
+        $comment1 = new Comment1;
+        $comment1->user_id = auth()->user()->id;
+        $comment1->board_id = $request->board_id;
+        $comment1->comment_id = $request->comment_id;
+        $comment1->comments = $request->comment;
+        $comment1->save();
+
+        return redirect('/' . $request->board_id . '/view');
+    }
+
+
     public
     function heart(Request $request)
     {

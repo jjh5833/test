@@ -21,12 +21,30 @@
             </div>
 
             <!-- Email Address -->
+
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')"/>
 
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required/>
             </div>
+            <script language="javascript">
+                function checkIt(){
+                    var email = userinput.email.value
+                    var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
+                    if(exptext.test(email)==false){
+
+                        //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우
+
+                        alert("이메일형식이 올바르지 않습니다.");
+
+                        userinput.email.focus();
+
+                        return false;
+                    }
+
+                }
+            </script>
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')"/>

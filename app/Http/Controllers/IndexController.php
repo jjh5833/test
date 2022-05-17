@@ -24,7 +24,6 @@ class IndexController extends Controller
 
     public function free()
     {
-
         return view('category.free');
 
     }
