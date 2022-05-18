@@ -92,7 +92,7 @@ class BoardController extends Controller
     {
         $category = Category::find($id);
         $category_title = $category->title;
-        $boards = Board::where('category_id', $id)->orderby('created_at', 'desc')->paginate(5);
+        $boards = Board::where('category_id', $id)->orderby('created_at', 'asc')->paginate(5);
 
         return view('category.board')
             ->with('boards', $boards)
@@ -184,8 +184,16 @@ class BoardController extends Controller
         }
 
 
-//        return redirect('/' . $request->board_id . '/view');
-        return back();
+        return redirect('/' . $request->board_id . '/view');
+//        {
+//            echo "<script>
+//                alert('왜');
+//                history.go(-1);
+//             window.location.href=('http://localhost/test/public/' +'$request->board_id'+ '/view');
+//            </script>;";
+//
+//        }
+//        return back();
     }
 
 

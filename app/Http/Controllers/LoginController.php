@@ -28,9 +28,10 @@ class LoginController extends Controller
         }
     }
 
-    public function mydata($id) //카테고리에 보이는 카테고리 값들을 보여주는 코드
+    public function mydata($id)
     {
         $user = User::find($id);
+
         return view('login.mydata')
             ->with('user', $user);
 

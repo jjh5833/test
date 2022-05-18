@@ -7,6 +7,7 @@
 
     <div class="container">
         <div class="row">
+
             <div>
                 <div class="col-12 border border-1 mt-5">
                     <div class="row">
@@ -21,11 +22,11 @@
                         {!!$board->content!!}
                     </div>
                     {{--             이미지 자리        <img src="./image/guide_map_main.jpg" id="imgname" align="left">--}}
-                    <img src="./image/CAT.jpg" id="test">
 
                     {{--이미지 태그를 걸고 저장 장소에 파일이 올라가야하는데?--}}
                     {!! $board->imgname !!}
                 </div>
+
                 <div id="map" style="width:500px;height:400px;">
                     <body>
                     <div id="map" style="width:500px;height:400px;"></div>
@@ -72,7 +73,7 @@
 
                         <div class="row mt-3" align="center">
                             <div class="col-12">
-                                <form method="POST" action="{{url('/')}}/heart">
+                                <form method="POST" action="{{url('/')}}/heart" autocomplete="off" onclick="history.go(-2)">
                                     @csrf
                                     <input type="hidden" name="board_id" value="{{$board->id}}">
                                     추천
@@ -107,9 +108,10 @@
                                         작성자: {{$user->name}} |
                                         {{$comment->created_at}} | 댓글아이디 {{$comment->id}}</small>
                                 <li class="list-group-item list-group-item-action">
-                                    <a href="#">댓글쓰기 누르면 드롭 다운</a> <br>
+                                    <a href="#" >댓글쓰기 누르면 드롭 다운</a> <br>
                                     대댓 작성 구역
-                                    <form method="POST" action="{{url('/')}}/comment1/store">
+{{--                                    <form method="POST" action="{{url('/')}}/comment1/store" target="_self" >--}}
+                                    <form method="POST" action="{{url('/')}}/comment1/store" target="_self" autocomplete="off" onchange="">
                                         @csrf
                                         <div class="row mt-2">
                                             <div class="col-12">
@@ -121,7 +123,7 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
-                                                    <button class="btn btn-outline-primary" type="submit">저장</button>
+                                                    <button class="btn btn-outline-primary" type="submit">대댓쓰기</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -137,8 +139,9 @@
                                                 @php
                                                     $user = App\Models\User::find($comment->user_id);
                                                 @endphp
-                                                작성자: {{$user->name}} |
+                                                작성자:{{$user->name}} |
                                                 {{$comment->created_at}} | 대댓글아이디 {{$comment->id}}</small>
+
                                         @endforeach
                                        </ul>
                                     @endif
@@ -161,11 +164,12 @@
                     </div>
                     <div class="col-12">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
-                            <button class="btn btn-outline-primary" type="submit">저장</button>
+                            <button class="btn btn-outline-primary" type="submit">댓글쓰기</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
+
 
 @endsection

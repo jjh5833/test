@@ -40,7 +40,8 @@
 
                     <tbody>
                     @php
-                        $boards = App\Models\Board::paginate(10);
+                        $boards = App\Models\Board::orderby('count','desc')->paginate(10);
+
                     @endphp
                     @if(count($boards)>0)
                         @foreach($boards as $board)
