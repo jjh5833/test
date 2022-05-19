@@ -2,27 +2,19 @@
 
 @section('inside_head_tag')
     <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
-{{--    <script type="text/javascript"--}}
-{{--            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cab3bd2a90fe94aaa3e3bbd9282944"></script>--}}
-{{--    <script type="text/javascript"--}}
-{{--            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cab3bd2a90fe94aaa3e3bbd9282944&libraries=services"></script>--}}
-{{--    <script type="text/javascript" src="./js/kakao.js"></script>--}}
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cab3bd2a90fe94aaa3e3bbd9282944"></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cab3bd2a90fe94aaa3e3bbd9282944&libraries=services,clusterer,drawing"></script>
+    {{--    <script type="text/javascript"--}}
+    {{--            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cab3bd2a90fe94aaa3e3bbd9282944"></script>--}}
+    {{--    <script type="text/javascript"--}}
+    {{--            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cab3bd2a90fe94aaa3e3bbd9282944&libraries=services"></script>--}}
+    {{--    <script type="text/javascript" src="./js/kakao.js"></script>--}}
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cab3bd2a90fe94aaa3e3bbd9282944"></script>
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cab3bd2a90fe94aaa3e3bbd9282944&libraries=services,clusterer,drawing"></script>
 
 @endsection
 @section('content')
     <div class="container">
-        <script type="text/javascript">
-            function getRealPath(obj){
-                obj.select();
-                document.selection.createRange().text.toString();
-
-                // document.selection.createRangeCollection()[0].text.toString();// 이걸로....
-                // document.upimage.file_path.value = document.selection.createRangeCollection()[0].text.toString();
-
-            }
-        </script>
         @php
             $categories = App\Models\Category::orderby('id','asc')->get();
         @endphp
@@ -56,10 +48,15 @@
             </div>
         </div>
     </div>
-{{--    <input type="file" name="imgFile" id="imgname" enctype="multipart/form-data" /><br>--}}
-    <input type="file" name="imgFile" id="imgname" value="123" enctype="text/plain">
-{{--           onchange="this.select(); document.getElementById('file_path').value=document.selection.createRange().text.toString();">--}}
-{{--    <input type="text" name="file_path" id="file_path"size="100">--}}
+    <form name="reqform" method="post" action="/test.php" enctype="multipart/form-data" target="_blank">
+
+        <input type="file" name="imgFile" id="imgname"/><br>
+
+        <input type="submit" value="업로드"/>
+    </form>
+    {{--    <input type="file" name="imgFile" id="imgname" value="123" enctype="text/plain">--}}
+    {{--           onchange="this.select(); document.getElementById('file_path').value=document.selection.createRange().text.toString();">--}}
+    {{--    <input type="text" name="file_path" id="file_path"size="100">--}}
 
     <div class="map_wrap">
         <div id="map"
@@ -116,13 +113,12 @@
             });
     </script>
 
-
     <script>
         // $(document).ready(function (){
         //
         //     $('#submit').click(function (){
-        //         var file_path = $('textarea.editor').val();
-        //         console.log(file_path);
+        //         var imgname = $('imgname').val();
+        //         console.log(imgname);
         //
         //
         //     })
@@ -135,14 +131,17 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
         $(document).ready(function () {
             $('#submit').click(function () {
 
                 var title = $("#title").val();
                 var category_id = $("#category_id").val();
                 var imgname = $("#imgname").val();
+                // var imgname = document.getElementById("imgname");
                 var content = $('.ck-content').html();
 
+                // $imgname = pathinfo($imgname, PATHINFO_FILENAME);
 
                 $.ajax({
                     type: "POST",
@@ -159,7 +158,7 @@
                     success: function success(data) {
                         console.log(data.result);
                         window.location.href = 'http://localhost/test/public/free';
-                        {{--window.location.href = '/' . {{$request->board_id}}. '/board';--}}
+                        {{--window.location.href = '/{{category_id}}/board';--}}
                     },
                     // error: function (response) {
                     //     console.log(response);

@@ -17,10 +17,9 @@ class BoardController extends Controller
 {
     public function create()
     {
-        $categories = Category::orderby('title', 'desc')->get();
-        return view('board.create')
-            ->with('categories', $categories)
-            ->with('categories', $categories);
+//        $categories = Category::orderby('title', 'desc')->get(); 이게 왜 있지
+        return view('board.create');
+//            ->with('categories', $categories);
     }
 
     public function view($id)
@@ -67,12 +66,15 @@ class BoardController extends Controller
 
     public function store(Request $request)
     {
+        $imgname = $request->imgname;
+        $without_extension = pathinfo($imgname, PATHINFO_FILENAME);
+
         if (isset(auth()->user()->id)) {
             $board = new Board;
             $board->title = $request->title;
             $board->category_id = $request->category_id;
             $board->content = $request->input('content');
-            $board->imgname = $request->imgname;
+            $board->imgname = $without_extension;
             $board->user_id = auth()->user()->id; //20220509 추가 게시글 작성시 user_id값도 가져오기
 
             $board->save();
@@ -92,7 +94,7 @@ class BoardController extends Controller
     {
         $category = Category::find($id);
         $category_title = $category->title;
-        $boards = Board::where('category_id', $id)->orderby('created_at', 'asc')->paginate(5);
+        $boards = Board::where('category_id', $id)->orderby('created_at', 'desc')->paginate(5); // 보드 카테고리 아이디에서 5개 시간순으로 정렬
 
         return view('category.board')
             ->with('boards', $boards)
@@ -195,6 +197,9 @@ class BoardController extends Controller
 //        }
 //        return back();
     }
-
+//    public function upload(Request $request)
+//    {
+//        return view('cat.test');
+//    }
 
 }

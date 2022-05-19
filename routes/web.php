@@ -54,6 +54,7 @@ Route::delete('/{id}/delete', [BoardController::class, 'delete']);
 Route::post('/count', [BoardController::class, 'count']);//글 조회
 Route::post('/heart', [BoardController::class, 'heart']);
 Route::post('/comment1/store', [BoardController::class, 'comment1Store']); //댓글
+//Route::post('/upload', [BoardController::class, 'upload']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

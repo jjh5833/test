@@ -24,7 +24,10 @@
                     {{--             이미지 자리        <img src="./image/guide_map_main.jpg" id="imgname" align="left">--}}
 
                     {{--이미지 태그를 걸고 저장 장소에 파일이 올라가야하는데?--}}
+                    @if($board->imgname != null)
                     {!! $board->imgname !!}
+                    <img src="/img/{{$board->imgname}}.jpg" height="200px">
+                    @endif
                 </div>
 
                 <div id="map" style="width:500px;height:400px;">

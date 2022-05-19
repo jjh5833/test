@@ -69,6 +69,7 @@
                         <td> <!-- 쓴날짜 -->
                             {{$board->count}}
                         </td> <!-- /쓴날짜 -->
+
                 @endforeach
             @endif
 

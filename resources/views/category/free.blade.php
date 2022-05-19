@@ -40,7 +40,7 @@
 
                     <tbody>
                     @php
-                        $boards = App\Models\Board::orderby('count','desc')->paginate(10);
+                        $boards = App\Models\Board::orderby('created_at', 'desc')->paginate(10);
 
                     @endphp
                     @if(count($boards)>0)
