@@ -26,6 +26,7 @@ class IndexController extends Controller
         return view('category.notice');
     }
 
+
     public function free()
     {
         return view('category.free');

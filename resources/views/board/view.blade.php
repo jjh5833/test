@@ -26,7 +26,7 @@
                     {{--이미지 태그를 걸고 저장 장소에 파일이 올라가야하는데?--}}
                     @if($board->imgname != null)
                     {!! $board->imgname !!}
-                    <img src="/img/{{$board->imgname}}.jpg" height="200px">
+                    <img src="/img/{{$board->imgname}}" height="200px">
                     @endif
                 </div>
 

@@ -9,10 +9,6 @@ use App\Models\Board;
 use App\Models\Comment;
 use App\Models\Heart;
 
-$prevPage = $_SERVER['HTTP_REFERER'];
-
-header('location:' . $prevPage);
-
 class BoardController extends Controller
 {
     public function create()
@@ -67,7 +63,8 @@ class BoardController extends Controller
     public function store(Request $request)
     {
         $imgname = $request->imgname;
-        $without_extension = pathinfo($imgname, PATHINFO_FILENAME);
+//        $without_extension = pathinfo($imgname, PATHINFO_FILENAME); // 파일의 순수 이름만 남는 설정
+        $without_extension = pathinfo($imgname, PATHINFO_BASENAME);  // 파일의 이름,확장자까지 가져오는 설정
 
         if (isset(auth()->user()->id)) {
             $board = new Board;

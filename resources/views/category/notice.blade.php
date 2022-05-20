@@ -77,24 +77,24 @@
                                     </div>
                                 </div>
                                 @endguest
-                                <div id="menubar"
-                                     style="position: sticky; border-radius: 10px;border-style: outset; display: flex; flex-direction: row;  width: 324px;float: right ;height: 174px;">
-
-                                    <div class="col-50 col-width" style="width: 200px; float: right ">
-                                        @auth
+                                @auth
+                                    <div id="menubar"
+                                         style="position: sticky; border-radius: 10px;border-style: outset; display: flex; flex-direction: row;  width: 324px;float: right ;height: 174px;">
+                                        <div class="col-50 col-width" style="width: 200px; float: right ">
                                             환영합니다. {{auth()->user()->name}} 님
-                                            <a class="nav-link" href="{{url('/')}}/{{auth()->user()->id}}/mydata">내정보 수정
-                                            </a>
+                                            <a class="nav-link" href="{{url('/')}}/{{auth()->user()->id}}/mydata">내정보
+                                                수정</a>
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+                                                <a class="nav-link" href="route('logout')"
+                                                   onclick="event.preventDefault(); this.closest('form').submit();">
+                                                    Log Out
+                                                </a>
+                                            </form>
+                                        </div>
                                         @endauth
-                                        <form method="POST" action="{{ route('logout') }}">
-                                            @csrf
-                                            <a class="nav-link" href="route('logout')"
-                                               onclick="event.preventDefault(); this.closest('form').submit();">
-                                                Log Out
-                                            </a>
-                                        </form>
+
                                     </div>
-                                </div>
                             </div>
                     </div>
                 </div>
@@ -727,170 +727,177 @@
             {{--   이미지 반복 예정  (최신순)  --}}
 
             @php
-                $boards = App\Models\Board::orderby('created_at','desc')->paginate(70);
+                $boards = App\Models\Board::orderby('id','desc')->paginate(3);
             @endphp
-
+            {{--            @php--}}
+            {{--                $category = App\Models\Category::get(id);--}}
+            {{--            @endphp--}}
+            @php
+                $categorys = App\Models\Category::find('id')
+            @endphp
             <div id="imgbox" class="mt-5">
                 <div id="1" style="display:none; z-index:1;">
                     <h2>서울</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==1)
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
+                    @foreach($boards as $board )
+                        @if($board->category_id==1 and $board->imgname != null )
+                            <img src="/img/{{$board->imgname}}" height="200px">
                         @endif
                     @endforeach
                 </div>
                 <div id="2" style="display:none; z-index:1;">
                     <h2>경기도</h2>
                     @foreach($boards as $board)
-                        @if($board->category_id==2)
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
+                        @if($board->category_id==2 and $board->imgname != null)
+                            <img src="/img/{{$board->imgname}}" height="200px">
                         @endif
                     @endforeach
                 </div>
                 <div id="3" style="display:none; z-index:1;">
                     <h2>강원도</h2>
                     @foreach($boards as $board )
-                        @if($board->category_id==3  and $board->imgname != null)
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
+                        @if($board->category_id==3 and $board->imgname != null)
+                            <img src="/img/{{$board->imgname}}" height="200px">
                         @endif
                     @endforeach
                 </div>
-                <div id="4" style="display:none; z-index:1;">
-                    <h2>인천</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==4)
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="5" style="display:none; z-index:1;">
-                    <h2>세종</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==5)
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="6" style="display:none; z-index:1;">
-                    <h2>경상북도</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==6 )
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="7" style="display:none; z-index:1;">
-                    <h2>경상남도</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==7 )
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="8" style="display:none; z-index:1;">
-                    <h2>전라북도</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==8 )
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="9" style="display:none; z-index:1;">
-                    <h2>전라남도</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==9 )
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="10" style="display:none; z-index:1;">
-                    <h2>충청북도</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==10)
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="11" style="display:none; z-index:1;">
-                    <h2>충청남도</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==11 )
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
+                {{--                <div id="4" style="display:none; z-index:1;">--}}
+                {{--                    <h2>인천</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==4)--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="5" style="display:none; z-index:1;">--}}
+                {{--                    <h2>세종</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==5)--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="6" style="display:none; z-index:1;">--}}
+                {{--                    <h2>경상북도</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==6 )--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="7" style="display:none; z-index:1;">--}}
+                {{--                    <h2>경상남도</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==7 )--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="8" style="display:none; z-index:1;">--}}
+                {{--                    <h2>전라북도</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==8 )--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="9" style="display:none; z-index:1;">--}}
+                {{--                    <h2>전라남도</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==9 )--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="10" style="display:none; z-index:1;">--}}
+                {{--                    <h2>충청북도</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==10)--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="11" style="display:none; z-index:1;">--}}
+                {{--                    <h2>충청남도</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==11 )--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
                 <div id="12" style="display:none; z-index:1;">
                     <h2>대구</h2>
                     @foreach($boards as $board)
-                        @if($board->category_id==12 )
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
+                        @if($board->category_id==12)
+
+                            <img src="/img/{{$board->imgname}}" height="200px">
                         @endif
                     @endforeach
+
                 </div>
-                <div id="13" style="display:none; z-index:1;">
-                    <h2>대전</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==13)
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="14" style="display:none; z-index:1;">
-                    <h2>울산</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==14 )
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="15" style="display:none; z-index:1;">
-                    <h2>제주도</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==15 )
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="16" style="display:none; z-index:1;">
-                    <h2>독도</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==16)
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="17" style="display:none; z-index:1;">
-                    <h2>울릉도</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==17 )
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="18" style="display:none; z-index:1;">
-                    <h2>광주</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==18 )
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="19" style="display:none; z-index:1;">
-                    <h2>태안</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==19)
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
-                <div id="20" style="display:none; z-index:1;">
-                    <h2>부산</h2>
-                    @foreach($boards as $board)
-                        @if($board->category_id==20 and $board->imgname != null)
-                            <img src="/img/{{$board->imgname}}.jpg" height="200px">
-                        @endif
-                    @endforeach
-                </div>
+                {{--                <div id="13" style="display:none; z-index:1;">--}}
+                {{--                    <h2>대전</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==13)--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="14" style="display:none; z-index:1;">--}}
+                {{--                    <h2>울산</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==14 )--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="15" style="display:none; z-index:1;">--}}
+                {{--                    <h2>제주도</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==15 )--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="16" style="display:none; z-index:1;">--}}
+                {{--                    <h2>독도</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==16)--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="17" style="display:none; z-index:1;">--}}
+                {{--                    <h2>울릉도</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==17 )--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="18" style="display:none; z-index:1;">--}}
+                {{--                    <h2>광주</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==18 )--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="19" style="display:none; z-index:1;">--}}
+                {{--                    <h2>태안</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==19)--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
+                {{--                <div id="20" style="display:none; z-index:1;">--}}
+                {{--                    <h2>부산</h2>--}}
+                {{--                    @foreach($boards as $board)--}}
+                {{--                        @if($board->category_id==20 and $board->imgname != null)--}}
+                {{--                            <img src="/img/{{$board->imgname}}.jpg" height="200px">--}}
+                {{--                        @endif--}}
+                {{--                    @endforeach--}}
+                {{--                </div>--}}
             </div>
         </div>
         </body>
